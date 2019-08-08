@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko-kr">
-  <head>
-	<meta name="generator" content="Hugo 0.56.3" /><meta charset="utf-8">
+  <head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge"><title>WeSee Lab</title>
     
@@ -20,7 +19,7 @@
     
     <div id="preloader">
       <div id="status"></div>
-    </div><section class="hero is-fullheight is-default is-bold"><nav class="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
+    </div><nav class="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
 
@@ -115,23 +114,59 @@
 
     </div>
   </nav>
-<div class="hero-body">
-        <div class="container">
-            <div class="columns is-vcentered">
-            <div class="column is-5 is-offset-1 landing-caption">
-                <h1 class="title is-1 is-bold is-spaced">WeSee Lab</h1><h2 class="subtitle is-5 is-muted">
-                on milkyway.team from Milkyway Company
-                </h2>
-            </div>
-            <div class="column is-5 is-offset-1">
-                <figure class="image"><img src="/images/avatar.png" 
-                     style="width:500px" alt="Myself">
-                </figure>
-            </div>
-            </div>
-        </div>
-        </div>
-    </section><footer class="footer footer-dark">
+<section class="section is-medium">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-centered-tablet-portrait">
+        <h1 class="title section-title">GitLab-CI에서 sudo 실행 문제</h1>
+        <h5 class="subtitle is-5 is-muted"></h5>
+        <div class="divider"></div>
+        
+        <section class="section content has-text-justified">
+          
+
+<h2 id="gitlab-ci에서-docker-compose-명령-실행시-sudo-문제-발생-해결-방법">GitLab-CI에서 docker-compose 명령 실행시 sudo 문제 발생 해결 방법</h2>
+
+<h3 id="sudo-명령-실행시-아래와-같은-오류가-발생"><code>sudo</code> 명령 실행시 아래와 같은 오류가 발생</h3>
+
+<p><img src="err_msg.png" alt="오류발생" /></p>
+
+<h3 id="원인">원인</h3>
+
+<p><code>sudo</code> 명령 실행시 패스워드를 입력받지 못해서 발생.</p>
+
+<h3 id="해결-방법">해결 방법</h3>
+
+<blockquote>
+<p>구글링 해보면 <code>echo</code>명령으로 패스워드를 전달하는 팁도 있긴 하지만 보안상 문제가 발생 할 수 있으므로, 패스워드 입력없이 실행 할 수 있는 명령을 등록 한다.</p>
+</blockquote>
+
+<ol>
+<li><p><code>sudoers</code> 설정 파일 열기</p>
+
+<pre><code class="language-shell">sudo visudo
+</code></pre></li>
+
+<li><p>패스워드 없이 실행 할 수 있는 명령어 등록</p>
+
+<pre><code>userid    ALL=NOPASSWD: /usr/bin/docker-compose
+</code></pre>
+
+<blockquote>
+<p>userid는 <code>gitlab-runner</code>가 실행되는 계정입니다.</p>
+</blockquote></li>
+</ol>
+
+        </section>
+      </div>
+    </div>
+  </div>  
+  <div class="container">
+    <div class="columns">
+      <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
+        Last modified:9 August 2019</div>
+    </div>
+  </div></section><footer class="footer footer-dark">
   <div class="container">
     <div class="columns">
       <div class="column">

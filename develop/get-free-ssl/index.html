@@ -115,51 +115,91 @@
     </div>
   </nav>
 <section class="section is-medium">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-centered-tablet-portrait">
-              <h1 class="title section-title">GitLab</h1>
-              <h5 class="subtitle is-5 is-muted"></h5>
-              <div class="divider"></div>        
-              <div class="section is-medium">
-                <div class="container"><div class="columns"></div>
-                          <div class="columns"><div class="column is-4">
-    <div class="box">
-      <figure class="image is-3by2">
-        <a href="/develop/get-free-ssl/"><img src="/develop/get-free-ssl/eff-logo-lockup-red_hu88e0e6ec600f6434972b815a1605fe21_4875_600x0_resize_box_2.png" alt=""></a>
-      </figure>
-      <h3 class="title is-5 summary-title">
-        무료 SSL 인증서 발급
-      </h3>
-      <p class="summary-summary">Docker로 gitlab 설치 후 SSL 공인인증서 발급 방법</p> 
-      <div class="action has-text-right">
-        <a href="/develop/get-free-ssl/" class="button is-primary">
-                Read More
-            </a>
+  <div class="container">
+    <div class="columns">
+      <div class="column is-centered-tablet-portrait">
+        <h1 class="title section-title">무료 SSL 인증서 발급</h1>
+        <h5 class="subtitle is-5 is-muted"></h5>
+        <div class="divider"></div>
+        
+        <section class="section content has-text-justified">
+          
+
+<h3 id="docker에-letsencrypt-설치">docker에 letsencrypt 설치</h3>
+
+<pre><code class="language-shell">$ sudo docker exec -it gitlab /bin/bash
+root@gitlab:/# apt-get install letsencrypt
+</code></pre>
+
+<h3 id="인증에-사용-할-설정-추가">인증에 사용 할 설정 추가</h3>
+
+<pre><code class="language-shell">$ sudo docker exec -it gitlab vim /etc/gitlab/gitlab.rb
+</code></pre>
+
+<blockquote>
+<p>위 명령을 실행하여 gitlab 설정 파일을 열고, <code>custom_gitlab_server_config</code> 설정 부분을 찾아 아래와 같이 수정해 준다.</p>
+
+<pre><code>nginx['custom_gitlab_server_config'] = &quot;location ^~ /.well-known { root /var/www/letsencrypt; }&quot;
+</code></pre>
+</blockquote>
+
+<h3 id="설정-변경사항-적용">설정 변경사항 적용</h3>
+
+<pre><code class="language-shell">$ sudo docker exec -it gitlab gitlab-ctl reconfigure
+</code></pre>
+
+<h3 id="인증서-발급">인증서 발급</h3>
+
+<pre><code class="language-shell">$ sudo docker exec -it gitlab /bin/bash
+root@gitlab:/# letsencrypt certonly -a webroot -w /var/www/letsencrypt -d $GILAB_DOMAIN_NAME
+</code></pre>
+
+<blockquote>
+<p><code>$GILAB_DOMAIN_NAME</code> 부분을 인증서를 발급 받을 도메인 명으로 설정하여 인증서를 발급받는다.</p>
+</blockquote>
+
+<h3 id="발급받은-인증서-설정">발급받은 인증서 설정</h3>
+
+<pre><code class="language-shell">$ sudo docker exec -it gitlab vim /etc/gitlab/gitlab.rb
+</code></pre>
+
+<blockquote>
+<p>아래 내용 설정 부분을 찾아 변경해준다.</p>
+
+<pre><code>nginx['redirect_http_to_https']=true
+nginx['ssl_certificate'] = &quot;/etc/letsencrypt/live/#{node['fqdn']}/fullchain.pem&quot;
+nginx['ssl_certificate_key'] = &quot;/etc/letsencrypt/live/#{node['fqdn']}/privkey.pem&quot;
+</code></pre>
+</blockquote>
+
+<h3 id="설정-변경사항-적용-1">설정 변경사항 적용</h3>
+
+<pre><code class="language-shell">$ sudo docker exec -it gitlab gitlab-ctl reconfigure
+</code></pre>
+
+<h3 id="crontab에-인증서-자동갱신을-설정한다">crontab에 인증서 자동갱신을 설정한다.</h3>
+
+<pre><code class="language-shell">$ crontab -e
+</code></pre>
+
+<blockquote>
+<p>host PC 쪽 스케쥴러 설정에 아래 내용을 추가하여 매월 1일 새벽에 인증서가 갱신 될 수 있도록 한다.</p>
+
+<pre><code>10 5 * * 1 sudo docker exec -t gitlab /usr/bin/letsencrypt renew &gt;&gt; /var/log/le-renew.log
+15 5 * * 1 sudo docker exec -t gitlab /usr/bin/gitlab-ctl restart nginx
+</code></pre>
+</blockquote>
+
+        </section>
       </div>
     </div>
-  </div><div class="column is-4">
-    <div class="box">
-      <figure class="image is-3by2">
-        <a href="/develop/gitlab-ci-sudo-problem/"><img src="/develop/gitlab-ci-sudo-problem/summary_hud916936ca4c368eebfa2433b7bdfe45e_19066_600x0_resize_box_2.png" alt=""></a>
-      </figure>
-      <h3 class="title is-5 summary-title">
-        GitLab-CI에서 sudo 실행 문제
-      </h3>
-      <p class="summary-summary">GitLab-CI에서 sudo 실행시 오류가 발생 했을때 해결 방법</p> 
-      <div class="action has-text-right">
-        <a href="/develop/gitlab-ci-sudo-problem/" class="button is-primary">
-                Read More
-            </a>
-      </div>
+  </div>  
+  <div class="container">
+    <div class="columns">
+      <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
+        Last modified:9 August 2019</div>
     </div>
-  </div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </section><footer class="footer footer-dark">
+  </div></section><footer class="footer footer-dark">
   <div class="container">
     <div class="columns">
       <div class="column">

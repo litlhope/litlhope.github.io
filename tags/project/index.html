@@ -115,70 +115,36 @@
     </div>
   </nav>
 <section class="section is-medium">
-  <div class="container">
-    <div class="columns">
-      <div class="column is-centered-tablet-portrait">
-        <h1 class="title section-title">GitLab-CI에서 sudo 실행 문제</h1>
-        <h5 class="subtitle is-5 is-muted"></h5>
-        <div class="divider"></div>
-        
-        <section class="section content has-text-justified">
-          
-
-<h2 id="gitlab-ci에서-docker-compose-명령-실행시-sudo-문제-발생-해결-방법">GitLab-CI에서 docker-compose 명령 실행시 sudo 문제 발생 해결 방법</h2>
-
-<h3 id="sudo-명령-실행시-아래와-같은-오류가-발생"><code>sudo</code> 명령 실행시 아래와 같은 오류가 발생</h3>
-
-<p><img src="err_msg.png" alt="오류발생" /></p>
-
-<blockquote>
-<p>sudo: no tty present and no askpass program specified</p>
-</blockquote>
-
-<h3 id="원인">원인</h3>
-
-<p><code>sudo</code> 명령 실행시 패스워드를 입력받지 못해서 발생.</p>
-
-<h3 id="해결-방법">해결 방법</h3>
-
-<blockquote>
-<p>구글링 해보면 <code>echo</code>명령으로 패스워드를 전달하는 팁도 있긴 하지만 보안상 문제가 발생 할 수 있으므로, 패스워드 입력없이 실행 할 수 있는 명령을 등록 한다.</p>
-</blockquote>
-
-<ol>
-<li><p><code>sudoers</code> 설정 파일 열기</p>
-
-<pre><code class="language-shell">sudo visudo
-</code></pre></li>
-
-<li><p>패스워드 없이 실행 할 수 있는 명령어 등록</p>
-
-<pre><code>userid    ALL=NOPASSWD: /usr/bin/docker-compose
-</code></pre>
-
-<blockquote>
-<p>userid는 <code>gitlab-runner</code>가 실행되는 계정입니다.</p>
-</blockquote></li>
-</ol>
-
-        </section>
+        <div class="container">
+          <div class="columns">
+            <div class="column is-centered-tablet-portrait">
+              <h1 class="title section-title">Project</h1>
+              <h5 class="subtitle is-5 is-muted"></h5>
+              <div class="divider"></div>        
+              <div class="section is-medium">
+                <div class="container"><div class="columns"></div>
+                          <div class="columns"><div class="column is-4">
+    <div class="box">
+      <figure class="image is-3by2">
+        <a href="/develop/create-django-react-project/"><img src="/develop/create-django-react-project/01_Welcome_to_IntelliJ_IDEA_hufd07526e74633ad7c89f5da8b2c3385d_41976_600x0_resize_box_2.png" alt=""></a>
+      </figure>
+      <h3 class="title is-5 summary-title">
+        Django&#43;React 프로젝트 생성
+      </h3>
+      <p class="summary-summary">Django&#43;React 프로젝트를 생성하고, IntelliJ 프로젝트로 등록 하는 과정입니다.</p> 
+      <div class="action has-text-right">
+        <a href="/develop/create-django-react-project/" class="button is-primary">
+                Read More
+            </a>
       </div>
     </div>
-  </div>
-  <div class="container">
-    <div class="columns">
-      <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
-        마지막 수정일:2019-08-09 06:11:15</div>
-    </div>
-  </div><script src="https://utteranc.es/client.js"
-          repo="litlhope/blog-comments"
-          issue-term="pathname"
-          theme="github-light"
-          crossorigin="anonymous"
-          async>
-  </script>
-</section>
-<footer class="footer footer-dark">
+  </div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section><footer class="footer footer-dark">
   <div class="container">
     <div class="columns">
       <div class="column">

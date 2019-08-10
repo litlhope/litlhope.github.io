@@ -118,47 +118,106 @@
   <div class="container">
     <div class="columns">
       <div class="column is-centered-tablet-portrait">
-        <h1 class="title section-title">GitLab-CI에서 sudo 실행 문제</h1>
+        <h1 class="title section-title">Django&#43;React 프로젝트 생성</h1>
         <h5 class="subtitle is-5 is-muted"></h5>
         <div class="divider"></div>
         
         <section class="section content has-text-justified">
           
 
-<h2 id="gitlab-ci에서-docker-compose-명령-실행시-sudo-문제-발생-해결-방법">GitLab-CI에서 docker-compose 명령 실행시 sudo 문제 발생 해결 방법</h2>
-
-<h3 id="sudo-명령-실행시-아래와-같은-오류가-발생"><code>sudo</code> 명령 실행시 아래와 같은 오류가 발생</h3>
-
-<p><img src="err_msg.png" alt="오류발생" /></p>
-
 <blockquote>
-<p>sudo: no tty present and no askpass program specified</p>
+<p>아래 설명은 <a href="http://milkyway.team" target="_blank">(주) 밀키웨이 컴퍼니</a>에서 Django+React 프로젝트 생성에 표준으로 사용하는 과정입니다.
+이후 과정은 각 프로젝트 성격에 따라 달라지므로, 개인의 프로젝트 구성 하실때 참고만 해주세요.</p>
 </blockquote>
 
-<h3 id="원인">원인</h3>
+<h2 id="0-프로젝트-구조">0. 프로젝트 구조</h2>
 
-<p><code>sudo</code> 명령 실행시 패스워드를 입력받지 못해서 발생.</p>
+<pre><code>django-react            # ROOT
+├── backend_django      # Django 프로젝트 
+│   └── config
+└── front_react         # React app 프로젝트 
+    ├── public
+    └── src
+</code></pre>
 
-<h3 id="해결-방법">해결 방법</h3>
+<h2 id="1-프로젝트-생성">1. 프로젝트 생성</h2>
 
-<blockquote>
-<p>구글링 해보면 <code>echo</code>명령으로 패스워드를 전달하는 팁도 있긴 하지만 보안상 문제가 발생 할 수 있으므로, 패스워드 입력없이 실행 할 수 있는 명령을 등록 한다.</p>
-</blockquote>
-
-<ol>
-<li><p><code>sudoers</code> 설정 파일 열기</p>
-
-<pre><code class="language-shell">sudo visudo
-</code></pre></li>
-
-<li><p>패스워드 없이 실행 할 수 있는 명령어 등록</p>
-
-<pre><code>userid    ALL=NOPASSWD: /usr/bin/docker-compose
+<pre><code class="language-shell">$ mkdir django-react
+$ cd django-react
+$ create-react-app front_react
+$ django-admin startproject config
+$ mv config backend_django
+$ pyenv virtualenv 3.7.4 django-react
+$ pyenv local django-react
+$ pip install Django
+$ pip freeze &gt; requirements.txt
 </code></pre>
 
 <blockquote>
-<p>userid는 <code>gitlab-runner</code>가 실행되는 계정입니다.</p>
-</blockquote></li>
+<p><code>React app</code> 생성 =&gt; <code>Django</code> 생성 =&gt; <code>pyenv</code> 설정</p>
+</blockquote>
+
+<h2 id="2-intellij-프로젝트-등록">2. IntelliJ 프로젝트 등록</h2>
+
+<ol>
+<li><p>신규 프로젝트 생성</p>
+
+<p><img src="01_Welcome_to_IntelliJ_IDEA.png" alt="신규 프로젝트 생성" /></p></li>
+
+<li><p>빈 프로젝트로 생성</p>
+
+<p><img src="02_New_Project.png" alt="빈 프로젝트로 생성" /></p></li>
+
+<li><p>위 챕터1에서 생성한 ROOT 디렉토리 지정하여 프로젝트 생성</p>
+
+<p><img src="03_New_Project.png" alt="프로젝트 경로 지정" /></p></li>
+
+<li><p>React app 모듈 추가</p>
+
+<p>1) <code>+</code>버튼을 눌러 <code>New Module</code>을 선택 한다.</p>
+
+<p><img src="04_Project_Structure.png" alt="모듈 추가" /></p>
+
+<p>2) <code>Static Web</code>의 <code>React App</code>을 선택 한다.</p>
+
+<p><img src="05_New_Module.png" alt="React App 선택" /></p>
+
+<p>3) <code>React App</code> 경로를 지정한다.</p>
+
+<p><img src="06_New_Module.png" alt="경로 지정" /></p></li>
+
+<li><p>Django 모듈 추가</p>
+
+<p>1) <code>+</code>버튼을 눌러 <code>New Module</code>을 선택 한다.</p>
+
+<p><img src="07_Project_Structure.png" alt="모듈 추가" /></p>
+
+<p>2) 챕터1에서 생성한 <code>django-react</code> 가상환경을 이용하기 위해 <code>New...</code> 버튼을 선택한다.</p>
+
+<p><img src="08_New_Module.png" alt="Python 모듈 추가" /></p>
+
+<p>3) 사용자 Home 디렉토리의 <code>.pyenv</code> 디렉토리 안쪽에 생성된 가상환경 경로를 설정해준다.</p>
+
+<p><img src="09_Add_Python_Interpreter.png" alt="가상환경 경로 설정" /></p>
+
+<p>4) 다시 New Module 화면으로 돌아와 Python의 Django를 체크해준다. 나머지는 각 프로젝트 설정에 맞춰서 추가 설정한다.</p>
+
+<p><img src="10_New_Module.png" alt="Django 설정" /></p>
+
+<p>5) Djang 프로젝트 경로를 지정한다.</p>
+
+<p><img src="11_New_Module.png" alt="경로 지정" /></p>
+
+<p>6) Django 설정을 아래 화면을 참고하여 잡아준다.</p>
+
+<p><img src="12_Project_Structure.png" alt="Django 설정" /></p>
+
+<p>7) [추가] 소스 경로가 자동으로 잡히지 않은 경우 <code>Add Content Root</code> 를 이용하여 경로 설정을 해준다.</p>
+
+<p><img src="13_Project_Structure.png" alt="Add Content Root" /></p>
+
+<p>8) [추가] SDK 가 잡혀있지 않은 경우 챕터1에서 생성한 가상환경을 잡아준다.
+<img src="14_Project_Structure.png" alt="SDK 설정" /></p></li>
 </ol>
 
         </section>
@@ -168,7 +227,7 @@
   <div class="container">
     <div class="columns">
       <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
-        마지막 수정일:2019-08-09 06:11:15</div>
+        마지막 수정일:2019-08-10 15:23:28</div>
     </div>
   </div><script src="https://utteranc.es/client.js"
           repo="litlhope/blog-comments"

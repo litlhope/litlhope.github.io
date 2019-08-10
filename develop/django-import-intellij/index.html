@@ -115,36 +115,58 @@
     </div>
   </nav>
 <section class="section is-medium">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-centered-tablet-portrait">
-              <h1 class="title section-title">Server</h1>
-              <h5 class="subtitle is-5 is-muted"></h5>
-              <div class="divider"></div>        
-              <div class="section is-medium">
-                <div class="container"><div class="columns"></div>
-                          <div class="columns"><div class="column is-4">
-    <div class="box">
-      <figure class="image is-3by2">
-        <a href="/develop/get-free-ssl/"><img src="/develop/get-free-ssl/eff-logo-lockup-red_hu88e0e6ec600f6434972b815a1605fe21_4875_600x0_resize_box_2.png" alt=""></a>
-      </figure>
-      <h3 class="title is-5 summary-title">
-        무료 SSL 인증서 발급
-      </h3>
-      <p class="summary-summary">Docker로 gitlab 설치 후 SSL 공인인증서 발급 방법</p> 
-      <div class="action has-text-right">
-        <a href="/develop/get-free-ssl/" class="button is-primary">
-                Read More
-            </a>
+  <div class="container">
+    <div class="columns">
+      <div class="column is-centered-tablet-portrait">
+        <h1 class="title section-title">Django 프로젝트 IntelliJ에 추가하기</h1>
+        <h5 class="subtitle is-5 is-muted"></h5>
+        <div class="divider"></div>
+        
+        <section class="section content has-text-justified">
+          
+
+<h2 id="참고-django-프로젝트-생성">참고 : Django 프로젝트 생성</h2>
+
+<pre><code class="language-shell">$ django-admin startproject mysite
+$ cd mysite/
+$ virtualenv .env
+$ source .env/bin/activate
+$ pip install Django
+</code></pre>
+
+<h2 id="intellij에-프로젝트-추가-및-후처리">IntelliJ에 프로젝트 추가 및 후처리</h2>
+
+<h3 id="1-프로젝트-생성">1. 프로젝트 생성</h3>
+
+<ol>
+<li>Create New Project
+<img src="001.png" alt="Create New Project" /></li>
+<li>참고에서 생성한 <code>mysite</code> 디렉토리를 지정하고, 나머지 설정은 기본으로 하여 생성한다.</li>
+<li>프로젝트 생성 후 <code>Open Module Settings</code> 메뉴 오픈</li>
+</ol>
+
+<h3 id="2-django-설정">2. Django 설정</h3>
+
+<ol>
+<li><p>Project Settings &gt; Modules &gt; mysite &gt; Django 설정</p>
+
+<blockquote>
+<p>기본은 비어있어서 Django 실행이 되지 않는다. 아래 화면 참고하여 값을 설정해준다.</p>
+</blockquote>
+
+<p><img src="002.png" alt="Open Module Settings" /></p></li>
+</ol>
+
+        </section>
       </div>
     </div>
-  </div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </section><footer class="footer footer-dark">
+  </div>  
+  <div class="container">
+    <div class="columns">
+      <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
+        Last modified:10 August 2019</div>
+    </div>
+  </div></section><footer class="footer footer-dark">
   <div class="container">
     <div class="columns">
       <div class="column">

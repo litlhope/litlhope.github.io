@@ -115,66 +115,83 @@
     </div>
   </nav>
 <section class="section is-medium">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-centered-tablet-portrait">
-              <h1 class="title section-title">Develop</h1>
-              <h5 class="subtitle is-5 is-muted"></h5>
-              <div class="divider"></div>        
-              <div class="section is-medium">
-                <div class="container"><div class="columns"></div>
-                          <div class="columns"><div class="column is-4">
-    <div class="box">
-      <figure class="image is-3by2">
-        <a href="/develop/install-libheif/"><img src="/images/no_image_hu9aae2637199ec7b6f8ada09fa1a49433_78824_600x0_resize_box_2.png" alt=""></a>
-      </figure>
-      <h3 class="title is-5 summary-title">
-        libheif 설치
-      </h3>
-      <p class="summary-summary">우분투 리눅스에 `libheif` 라이브러리 컴파일 과정을 설명합니다.</p> 
-      <div class="action has-text-right">
-        <a href="/develop/install-libheif/" class="button is-primary">
-                Read More
-            </a>
+  <div class="container">
+    <div class="columns">
+      <div class="column is-centered-tablet-portrait">
+        <h1 class="title section-title">libheif 설치</h1>
+        <h5 class="subtitle is-5 is-muted"></h5>
+        <div class="divider"></div>
+        
+        <section class="section content has-text-justified">
+          
+
+<h2 id="상황설명">상황설명</h2>
+
+<p>파이썬으로 서버 개발 중 아이폰 및 안드로이드(갤럭시 10S)의 <code>heic</code> 확장자 파일을 처리해야 하는 상황이 발생했다.</p>
+
+<p><code>heic</code> 파일을 <code>jpeg</code> 파일로 변환 후 <code>resize</code> 처리를 하기 위해 <a href="https://github.com/david-poirier-csn/pyheif" target="_blank">pyheif</a> 라이브러리 사용이 필요 하게 되었다.</p>
+
+<p><code>pyheif</code> 라이브러리 이용을 위해서는 Linux에 <a href="https://github.com/strukturag/libheif" target="_blank">libheif</a>가 필요하여 설치 진행하였다.</p>
+
+<h2 id="설치방법">설치방법</h2>
+
+<p>현재(2019년 7월) 리눅스 패키지 관리자로 설치가 불가능 한 상태라, 소스를 직접 다운받아서 컴파일하여 사용</p>
+
+<h3 id="1-소스-다운로드">1. 소스 다운로드</h3>
+
+<pre><code class="language-shell">$ cd $TEMP_DIR
+$ git clone https://github.com/strukturag/libheif.git
+$ cd libheif/
+</code></pre>
+
+<h3 id="2-컴파일-필수-프로그램-설치">2. 컴파일 필수 프로그램 설치</h3>
+
+<blockquote>
+<p>컴파일 진행 중 필수 프로그램이 설치되지 않아서, 오류가 발생 했던 프로그램 목록입니다.
+서버에 컴파일 도구 설치 상태에 따라 아래 예시 이외에 추가 설치가 필요 할 수 있습니다.
+참고로 우분투 서버를 사용하고 있습니다.</p>
+</blockquote>
+
+<pre><code class="language-shell">$ sudo apt install autotools-dev automake pkg-config libtool
+</code></pre>
+
+<h3 id="3-라이브러리-빌드">3. 라이브러리 빌드</h3>
+
+<blockquote>
+<p>위 1번에서 <code>git clone</code> 한 <code>$TEMP_DIR/libheif</code> 디렉토리로 이동 후 아래 단계를 진행 합니다.</p>
+</blockquote>
+
+<pre><code class="language-shell">$ ./autogen.sh
+$ ./configure
+$ make
+</code></pre>
+
+<h3 id="4-라이브러리-연결">4. 라이브러리 연결</h3>
+
+<p>현재 디렉토리 아래에 <code>libheif/.libs</code> 디렉토리가 생기고 컴파일 된다.</p>
+
+<p>아래 단계를 거쳐서 시스템에서 <code>libheif</code>를 이용 할 수 있도록 설정한다.</p>
+
+<pre><code class="language-shell">$ cd libheif
+$ sudo cp -r .libs /usr/lib/libheif
+$ cd /usr/lib
+$ sudo ln -s libheif/libheif.so.1.4.0 libheif.so.1.4.0
+</code></pre>
+
+<blockquote>
+<p>libheif의 버전 번호는 컴파일 된 결과를 직접 확인하셔서 처리해 주세요. 위 <code>1.4.0</code>은 저의 경우 입니다.</p>
+</blockquote>
+
+        </section>
       </div>
     </div>
-  </div><div class="column is-4">
-    <div class="box">
-      <figure class="image is-3by2">
-        <a href="/develop/get-free-ssl/"><img src="/develop/get-free-ssl/eff-logo-lockup-red_hu88e0e6ec600f6434972b815a1605fe21_4875_600x0_resize_box_2.png" alt=""></a>
-      </figure>
-      <h3 class="title is-5 summary-title">
-        무료 SSL 인증서 발급
-      </h3>
-      <p class="summary-summary">Docker로 gitlab 설치 후 SSL 공인인증서 발급 방법</p> 
-      <div class="action has-text-right">
-        <a href="/develop/get-free-ssl/" class="button is-primary">
-                Read More
-            </a>
-      </div>
+  </div>  
+  <div class="container">
+    <div class="columns">
+      <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
+        Last modified:10 August 2019</div>
     </div>
-  </div><div class="column is-4">
-    <div class="box">
-      <figure class="image is-3by2">
-        <a href="/develop/gitlab-ci-sudo-problem/"><img src="/develop/gitlab-ci-sudo-problem/summary_hud916936ca4c368eebfa2433b7bdfe45e_19066_600x0_resize_box_2.png" alt=""></a>
-      </figure>
-      <h3 class="title is-5 summary-title">
-        GitLab-CI에서 sudo 실행 문제
-      </h3>
-      <p class="summary-summary">GitLab-CI에서 sudo 실행시 오류가 발생 했을때 해결 방법</p> 
-      <div class="action has-text-right">
-        <a href="/develop/gitlab-ci-sudo-problem/" class="button is-primary">
-                Read More
-            </a>
-      </div>
-    </div>
-  </div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </section><footer class="footer footer-dark">
+  </div></section><footer class="footer footer-dark">
   <div class="container">
     <div class="columns">
       <div class="column">

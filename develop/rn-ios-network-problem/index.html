@@ -115,36 +115,38 @@
     </div>
   </nav>
 <section class="section is-medium">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-centered-tablet-portrait">
-              <h1 class="title section-title">Trouble Shooting</h1>
-              <h5 class="subtitle is-5 is-muted"></h5>
-              <div class="divider"></div>        
-              <div class="section is-medium">
-                <div class="container"><div class="columns"></div>
-                          <div class="columns"><div class="column is-4">
-    <div class="box">
-      <figure class="image is-3by2">
-        <a href="/develop/gitlab-ci-sudo-problem/"><img src="/develop/gitlab-ci-sudo-problem/summary_hud916936ca4c368eebfa2433b7bdfe45e_19066_600x0_resize_box_2.png" alt=""></a>
-      </figure>
-      <h3 class="title is-5 summary-title">
-        GitLab-CI에서 sudo 실행 문제
-      </h3>
-      <p class="summary-summary">GitLab-CI에서 sudo 실행시 오류가 발생 했을때 해결 방법</p> 
-      <div class="action has-text-right">
-        <a href="/develop/gitlab-ci-sudo-problem/" class="button is-primary">
-                Read More
-            </a>
+  <div class="container">
+    <div class="columns">
+      <div class="column is-centered-tablet-portrait">
+        <h1 class="title section-title">React Native iOS 앱에서 http 허용 설정</h1>
+        <h5 class="subtitle is-5 is-muted"></h5>
+        <div class="divider"></div>
+        
+        <section class="section content has-text-justified">
+          <p>iOS 앱은 기본적으로 <code>https</code>만 허용한다고 합니다.
+개발 단계에서 http 통신을 허용하는 방법 입니다.</p>
+
+<p><code>Info.plist</code>에 아래 설정을 추가한다.</p>
+
+<pre><code class="language-tree">+--App Transport Security Settings
+|  +--Exception Domains
+|  |  +--&lt;add.your.domain&gt;
+|  |  |  +--NSExceptionAllowsInsecureHTTPLoads
+</code></pre>
+
+<p><code>&lt;add.your.domain&gt;</code>부분에 연결할 도메인을 <code>Dictionary</code>로 생성하고,
+<code>NSExceptionAllowsInsecureHTTPLoads</code>를 <code>Boolena</code>으로 추가하고 값을 <code>YES</code>로 설정한다.</p>
+
+        </section>
       </div>
     </div>
-  </div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </section><footer class="footer footer-dark">
+  </div>  
+  <div class="container">
+    <div class="columns">
+      <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
+        Last modified:10 August 2019</div>
+    </div>
+  </div></section><footer class="footer footer-dark">
   <div class="container">
     <div class="columns">
       <div class="column">

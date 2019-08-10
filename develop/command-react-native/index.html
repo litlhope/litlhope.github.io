@@ -115,36 +115,65 @@
     </div>
   </nav>
 <section class="section is-medium">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-centered-tablet-portrait">
-              <h1 class="title section-title">HTTPS</h1>
-              <h5 class="subtitle is-5 is-muted"></h5>
-              <div class="divider"></div>        
-              <div class="section is-medium">
-                <div class="container"><div class="columns"></div>
-                          <div class="columns"><div class="column is-4">
-    <div class="box">
-      <figure class="image is-3by2">
-        <a href="/develop/get-free-ssl/"><img src="/develop/get-free-ssl/eff-logo-lockup-red_hu88e0e6ec600f6434972b815a1605fe21_4875_600x0_resize_box_2.png" alt=""></a>
-      </figure>
-      <h3 class="title is-5 summary-title">
-        무료 SSL 인증서 발급
-      </h3>
-      <p class="summary-summary">Docker로 gitlab 설치 후 SSL 공인인증서 발급 방법</p> 
-      <div class="action has-text-right">
-        <a href="/develop/get-free-ssl/" class="button is-primary">
-                Read More
-            </a>
+  <div class="container">
+    <div class="columns">
+      <div class="column is-centered-tablet-portrait">
+        <h1 class="title section-title">React Native 관련 명령어</h1>
+        <h5 class="subtitle is-5 is-muted"></h5>
+        <div class="divider"></div>
+        
+        <section class="section content has-text-justified">
+          
+
+<blockquote>
+<p>아래 명령어 들은 <code>React Native</code> 프로젝트를 진행하면서 자주 쓰게된 명령을 개인적으로 모아둔것입니다.</p>
+
+<p>자세한 설명은 없습니다. 참고 정도로만 이용해 주세요.</p>
+</blockquote>
+
+<h2 id="android-bundle-파일-생성">Android bundle 파일 생성</h2>
+
+<pre><code class="language-shell">$ react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle  --assets-dest android/app/src/main/res/
+</code></pre>
+
+<blockquote>
+<p>위 명령 이용시 <code>android/app/src/main/res/</code> 디렉토리에 리소스 파일이 생성 되지만, 빌드시 <code>drawable</code>등의 리소스가 중복 된다는 오류가 발생하여 아래 명령을 사용 하였습니다.</p>
+</blockquote>
+
+<pre><code class="language-shell">$ react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle  --assets-dest android/app/build/generated/res/react
+</code></pre>
+
+<h2 id="xcode-라이브러리-재설치">Xcode 라이브러리 재설치</h2>
+
+<pre><code class="language-shell">$ rm -rf ~/Library/Caches/CocoaPods; rm -rf Pods; rm -rf ~/Library/Developer/Xcode/DerivedData/*; pod deintegrate; pod setup; pod install;
+</code></pre>
+
+<h2 id="node-modules-라이브러리-재설치">node_modules 라이브러리 재설치</h2>
+
+<pre><code class="language-shell">$ watchman watch-del-all &amp;&amp; rm -Rf node_modules &amp;&amp; npm install &amp;&amp; npm start -- --reset-cache
+</code></pre>
+
+<h2 id="xcode-rnfirebase-문제">Xcode RNFirebase 문제</h2>
+
+<blockquote>
+<p>Xcode에서 빌드하여 앱 실행시 정상 작동 하지만, Archive 하여 설치할 경우 <code>Firebase</code>가 정상 작동하지 않는 문제가 발생하였다.
+관련하여 검색되는 방법을 모두 사용해도 해결이 되지 않았지만, 우연히(다른 문제 해결 방법으로 제시된 방법이었음.) 발견한 방법.
+<code>Search Paths</code>에 아래 내용을 <code>recursive</code>로 추가</p>
+</blockquote>
+
+<pre><code>$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/iphoneos
+</code></pre>
+
+        </section>
       </div>
     </div>
-  </div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </section><footer class="footer footer-dark">
+  </div>  
+  <div class="container">
+    <div class="columns">
+      <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
+        Last modified:10 August 2019</div>
+    </div>
+  </div></section><footer class="footer footer-dark">
   <div class="container">
     <div class="columns">
       <div class="column">
